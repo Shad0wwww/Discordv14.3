@@ -1,0 +1,39 @@
+const { SlashCommandBuilder, EmbedBuilder  } = require('discord.js');
+const laby = require('laby.net');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('labyuser')
+        .setDescription('For information af personen')
+        .addStringOption(option =>
+            option.setName('name')
+                .setDescription('skriv navnet på personen')
+                .setRequired(true)),
+        
+    async execute(interaction, client) {
+
+        const message = await interaction.deferReply({
+            fetchReply: true
+        });
+        
+        if (interaction.getStringOption('name') == null || interaction.getStringOption('name') == '') {
+            console.log('no name');
+            
+        }
+
+        const navn = interaction.getStringOption('name');
+        const user = await laby.badges(navn);
+
+        const labyuser = new EmbedBuilder()
+            .setColor('#ff0000')
+            .setTitle(`${user}`)
+            .setTimestamp()
+
+        await interaction.editReply({
+            embeds: [labyuser],
+            ephemeral: true
+        });
+
+        
+    }
+}
