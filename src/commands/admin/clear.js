@@ -12,31 +12,40 @@ module.exports = {
             .setRequired(true)),
 
     async execute(interaction, client) {
-        const number = interaction.options.getInteger('antal');
-        let integer = interaction.options.getInteger('amount');
+      
+       
 
 
         const message = await interaction.deferReply({
             fetchReply: true
         });
 
-        const ping = new EmbedBuilder()
-            .setColor('#ff0000')
-            .setTitle(`Clear ${number} messages.`)
-            .setTimestamp()
+        if(!interaction.member.permissions.has("ADMINISTRATOR") && !interaction.member.permissions.has(kickPermissions)){
+            const embed4 = new MessageEmbed()
+                .setColor('#ff0000')
+                .setTitle('Clear Chat')
+                .setDescription('Du har ikke adgang!')
+                .setTimestamp()
+            return await interaction.editReply({ embeds: [embed4] });
 
+        } else {
+            try {
 
-        if(integer !== 100) { integer = integer + 1 }
-
-
-        await interaction.editReply({
             
-            
+                const real_integer = interaction.options.getInteger('antal');
+                let integer = interaction.options.getInteger('antal');
 
 
-            embeds: [ping]
-        });
+                if(integer !== 100) { integer = integer + 1 }
 
+                await interaction.channel.bulkDelete(integer, true);
+                await interaction.editReply({ content: `🤌 Slettede \`${real_integer} beskeder\`!` })
+                    
+                setTimeout(() => { interaction.deleteReply(); }, 5000);
+            } catch(err) {
+                console.log(err)
+            }
+        }
         
     }
 }

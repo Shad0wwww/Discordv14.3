@@ -6,8 +6,13 @@
   "scripts": {
     "test": "node ."
   },
+  
   "author": "Shad0w",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Efterskole/Discordv14.3"
+  },
+
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
     "@discordjs/voice": "^0.11.0",
