@@ -52,4 +52,3 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 
-//https://www.youtube.com/watch?v=Ina9qiiujCQ
