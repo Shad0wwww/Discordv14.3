@@ -10,18 +10,48 @@ module.exports = {
             .setName('port')
             .setDescription(`port på serveren`)
             .setRequired(true)),
-        async execute(interaction, client) {
+    async execute(interaction, client) {
 
         const message = await interaction.deferReply({
             fetchReply: true
         });
         const server = interaction.options.getString('server');
         const portserver = interaction.options.getNumber('port');
-        const portserver1 = 25565
-        util.status(server, {port: parseInt(portserver1)}).then((response) => {
+        const options = {
+            timeout: 1000 * 5, // timeout in milliseconds
+            enableSRV: true // SRV record lookup
+        };
+
+        util.status(server, portserver, options).then((response) => {
             console.log(response)
-            console.log(response.host)
+            console.log("errorrrrrr " + response.srvRecord.host)
+          
+
+            const host = new EmbedBuilder()
+                .setColor('#ff0000')
+                .setTitle(`Mc Server Status`)
+                .addFields(
+                    {name: 'Server Navn', value: server + " " + portserver},
+                    {name: 'Server Versions', value: response.version.name},
+                    {name: 'Motd', value: response.motd.clean},
+                    {name: 'Online Players og max Players', value: response.players.online + " / " + response.players.max }
+                    
+                    
+                )
+                //.setThumbnail(response.favicon)
+                .setTimestamp()
+                .setFooter({ text: `Brugt af: ${interaction.user.tag}` , iconURL: interaction.user.displayAvatarURL() });
+            interaction.editReply({
+                embeds: [host]
+            });  
+
+                
+                                         
+           
+            
+
         })
+        .catch ((error) => console.error(error));
         
         
         
