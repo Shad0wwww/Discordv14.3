@@ -52,6 +52,15 @@ module.exports = {
 
         })
         .catch ((error) => console.error(error));
+        const error = new EmbedBuilder()
+            .setColor('#ff0000')
+            .setDescription(`Kunne ikke finde serveren:  \`${server}\``)
+
+        interaction.editReply({
+            embeds: [error]
+        });  
+
+        
         
         
         
