@@ -7,3 +7,8 @@ features som botten har er:
 - mongoDB 
 - meme 
 - Clear
+
+Handlers:
+- Modal 
+- Button
+- Slash
