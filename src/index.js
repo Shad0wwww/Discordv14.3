@@ -8,6 +8,7 @@ const { guildId } = require("./config/config.json")
 const { connect } = require('mongoose');
 
 client.commands = new Collection();
+client.buttons = new Collection();
 client.commandArray = [];
 
 const functionFolders = fs.readdirSync('./src/functions');
@@ -22,6 +23,7 @@ for(const folder of functionFolders) {
 
 client.HandleEvents();
 client.HandleCommands();
+client.handleComponents();
 client.login(token);
 
 (async () => {
