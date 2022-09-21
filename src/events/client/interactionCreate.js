@@ -1,3 +1,6 @@
+const chalk = require('chalk');
+const { interactionType } = require('discord.js');
+
 module.exports = {
     name: "interactionCreate",
     async execute(interaction, client) {
@@ -30,8 +33,24 @@ module.exports = {
             } catch (err) {
                 console.error(err)
             }
+        } else if (interaction.isModalSubmit())  {
+            const { modals } = client;
+            const { customId } = interaction;
+            const modal = modals.get(customId);
 
-        } else console.log(`${interaction.author.tag} said: ${interaction.content}`);
+
+            if (!modal) return new Error('There is no code for the modal.')
+            try {   
+                await modal.execute(interaction, client)
+
+            } catch (err) {
+                console.error(err)
+            }
         
-    }
-}
+        } else  {
+            new Error("Der er fejl i interactionCreate.")
+            console.log(`${interaction.author.tag} said: ${interaction.content}`);
+        }
+    },
+
+};

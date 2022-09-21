@@ -1,3 +1,4 @@
+const { ModalSubmitFields } = require("discord.js");
 const { readdirSync } = require("fs")
 
 module.exports = (client) => {
@@ -6,7 +7,7 @@ module.exports = (client) => {
         for (const folder  of componentsFolders) {
             const componentsFiles = readdirSync(`./src/Components/${folder}`).filter((file) => file.endsWith(".js"));
 
-            const { buttons } = client; 
+            const { buttons, modals } = client; 
 
             switch (folder) {
                 case "buttons":
@@ -16,7 +17,11 @@ module.exports = (client) => {
                         buttons.set(button.data.name, button)
                     }
                     break;
-
+                case "modals":
+                    for (const file of componentsFiles) {
+                        const modal = require(`../../Components/${folder}/${file}`);
+                        modals.set(modal.data.name, modal)
+                    } 
                 default:
                     break;
 

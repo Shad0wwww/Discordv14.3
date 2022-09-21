@@ -9,6 +9,7 @@ const { connect } = require('mongoose');
 
 client.commands = new Collection();
 client.buttons = new Collection();
+client.modals = new Collection();
 client.commandArray = [];
 
 const functionFolders = fs.readdirSync('./src/functions');
