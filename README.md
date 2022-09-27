@@ -12,3 +12,4 @@ Handlers:
 - Modal 
 - Button
 - Slash
+- SelecterMenu
