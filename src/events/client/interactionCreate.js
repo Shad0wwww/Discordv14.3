@@ -1,10 +1,10 @@
 const chalk = require('chalk');
-const { interactionType } = require('discord.js');
+
 
 module.exports = {
     name: "interactionCreate",
     async execute(interaction, client) {
-        
+ 
         if (interaction.isChatInputCommand()) {
             const { commands } = client;
             const { commandName } = interaction;
@@ -33,6 +33,19 @@ module.exports = {
             } catch (err) {
                 console.error(err)
             }
+        } else if (interaction.isSelectMenu()) {
+        
+            const { selectMenus } = client;
+            const { customId } = interaction;
+            const menu = selectMenus.get(customId);
+            if (!menu) return new Error('There is no code for the Selecter.')
+            try {
+                await menu.execute(interaction, client)
+            } catch (err) {
+                console.error(err)
+            }
+
+
         } else if (interaction.isModalSubmit())  {
             const { modals } = client;
             const { customId } = interaction;
