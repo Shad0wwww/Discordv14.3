@@ -17,14 +17,15 @@ module.exports = (client) => {
                 console.log(`Command: ${command.data.name} has been loaded`);
             }
         }
-        const rest = new REST({ version: '9' }).setToken(process.env.token);
+        const rest = new REST({ version: '10' }).setToken(process.env.token);
         try {
-            console.log('refreshing (/)');
+            const { commands, commandArray } = client;
+            console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
             await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
                 body: client.commandArray,
             });
-            console.log('reloaded (/)');
+            console.log(`Successfully reloaded application (/) commands.`);
         } catch (error) {
             console.log(error);
         }
