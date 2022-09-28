@@ -1,9 +1,15 @@
 const { default: Axios, default: axios } = require("axios")
 const validator = require("validator")
+const fetch = require('node-fetch');
 
 module.exports = {
     getUuid: async(username) => {
         console.log("1 " + username)
+        let test =  axios.get("http://localhost:2555/data")
+
+        console.log("test "  + test)
+
+
         let uuid = null;
         if(validator.isUUID(username)) {
             let mcData = (await Axios.get("https://sessionserver.mojang.com/session/minecraft/profile/" + username)).data
@@ -21,8 +27,18 @@ module.exports = {
         return mcData.name;
     },
     getNameHistory: async(uuid) => {
-        let nameHistory = (await Axios.get("https://api.mojang.com/user/profiles/" + uuid + "/names")).data
-        return nameHistory
+        //I use labymod api to get NameHisstory because, mojang have removed there nameHistory.
+        const request = await fetch(`https://laby.net/api/user/${uuid}/get-names`, {
+            headers: {
+              'User-Agent': uuid
+            }
+        })
+        .then(res => res.text());
+        let data = JSON.parse( request );
+        return data
+
+
+
     }
 
     
