@@ -43,7 +43,7 @@ module.exports = {
         
         return response
 
-        //https://minotar.net/body/${username}/100.png
+        
 
     },
     getPlayerSkin: async(uuid) => {
