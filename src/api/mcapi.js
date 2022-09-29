@@ -35,10 +35,19 @@ module.exports = {
         })
         .then(res => res.text());
         let data = JSON.parse( request );
-        return data
+        
+        var response = []
+        for (let i = 0;i < data.length ;i++) {
+            response.push(data[i].name)
+        }
+        
+        return response
 
+        //https://minotar.net/body/${username}/100.png
 
-
+    },
+    getPlayerSkin: async(uuid) => {
+        return `https://minotar.net/body/${uuid}/100.png`;
     }
 
     
