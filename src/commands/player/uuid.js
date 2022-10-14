@@ -16,8 +16,8 @@ module.exports = {
         });
         
         let uuid = await getUuid(navn)
-       
-
+        let name = await getNameHistory(uuid)
+        console.log(name)
 
         const labyuser = new EmbedBuilder()
             .setColor('#ff0000')
