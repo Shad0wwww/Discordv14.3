@@ -5,9 +5,7 @@ const fetch = require('node-fetch');
 module.exports = {
     getUuid: async(username) => {
         console.log("1 " + username)
-        let test =  axios.get("http://localhost:2555/data")
-
-        console.log("test "  + test)
+       
 
 
         let uuid = null;
@@ -43,7 +41,7 @@ module.exports = {
         
         return response
 
-        //https://minotar.net/body/${username}/100.png
+        
 
     },
     getPlayerSkin: async(uuid) => {
